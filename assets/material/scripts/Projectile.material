@@ -1,0 +1,14 @@
+material Projectile
+{
+	technique
+	{
+		pass
+		{
+			
+			texture_unit
+			{
+				texture orb1.png
+			}
+		}
+	}
+}
