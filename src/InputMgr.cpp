@@ -110,6 +110,7 @@ void InputMgr::UpdateCamera(float dt){
 	 Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
 	 Ogre::Vector3 projVec = Ogre::Vector3::ZERO;
 
+
 	  if (mKeyboard->isKeyDown(OIS::KC_W))
 	    dirVec.z -= move;
 
@@ -132,8 +133,10 @@ void InputMgr::UpdateCamera(float dt){
 	      dirVec.x += move;
 	  }
 
-
 	  engine->gameMgr->cameraNode->translate(dirVec * dt, Ogre::Node::TS_LOCAL);
+
+	  engine->gameMgr->cameraNode->setPosition(engine->gameMgr->cameraNode->getPosition().x,
+			  engine->gameMgr->mTerrainGroup->getHeightAtWorldPosition(engine->gameMgr->cameraNode->getPosition()) + 100, engine->gameMgr->cameraNode->getPosition().z);
 
 	  for(unsigned int i = 0; i < engine->entityMgr->projectiles.size(); i++)
 	  {
@@ -193,7 +196,7 @@ bool InputMgr::mousePressed(const OIS::MouseEvent& me, OIS::MouseButtonID mid){
           engine->entityMgr->projectiles.pop_back();
 
           engine->entityMgr->projectileEntity->velocity = direction * 10000;
-          engine->soundMgr->playLaserSound(engine->entityMgr->projectileEntity);
+          //engine->soundMgr->playLaserSound(engine->entityMgr->projectileEntity);
       }
     	//std::pair <bool, float> result = mouseRay.intersects(engine->gameMgr->myPlane);
     }

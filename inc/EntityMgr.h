@@ -19,10 +19,12 @@ public:
 
   std::vector<Entity381*> entities;
   std::vector<Entity381*> projectiles;
+  std::vector<Entity381*> enemyProjectiles;
   Entity381* selectedEntity;
   int selectedEntityIndex;
   Entity381* shipEntity;
   Entity381* projectileEntity;
+  Entity381* enemyProjectile;
 
 
   //Ogre::SceneManager *sceneMgr;
@@ -39,8 +41,10 @@ private:
   void CreateCarrier(Ogre::Vector3 pos);
   void CreateRobot(Ogre::Vector3 pos);
   void CreateProjectile(Ogre::Vector3 pos);
+  void CreateEnemyProjectile(Ogre::Vector3 pos);
   int count;
   int projectileCount;
+  int enemyProjectileCount;
 
 };
 

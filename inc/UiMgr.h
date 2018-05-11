@@ -25,10 +25,10 @@ private:
 
 	OgreBites::ProgressBar * pbar;
 	OgreBites::ProgressBar * ebar;
-	OgreBites::Button* healthButton;
-	OgreBites::Button* enemyHealthButton;
 	OgreBites::Label* scoreLabel;
+	OgreBites::Label* livesLabel;
 
+	Ogre::Timer* timer;
 
 protected:
 	virtual void windowResized(Ogre::RenderWindow *rw);
@@ -58,9 +58,12 @@ public:
 	Ogre::OverlaySystem* mOverlaySystem;
 	OgreBites::Label *mLabel;
 	int score;
+	int highScore;
+	int lives;
 	std::string scoreString;
 	Ogre::Real health;
 	Ogre::Real enemyHealth;
+
 };
 
 #endif /* INC_UIMGR_H_ */

@@ -41,9 +41,9 @@ bool AnimationMgr::nextLocation(Entity381* entity){
 
 	for (unsigned int i = 0; i < engine->entityMgr->entities.size(); i ++){
 		if (engine->entityMgr->entities[i]->meshfilename == "robot.mesh"){
-			float rand1  = rand()%12000 - 800;
+			float rand1 = rand()%10000 - 800;
 			float rand2 =  engine->entityMgr->entities[i]->sceneNode->getPosition().y;
-			float rand3 = rand()%12000 - 800;
+			float rand3 = rand()%10000 - 800;
 			engine->entityMgr->entities[i]->mDestination = Ogre::Vector3(rand1, rand2, rand3);
 		}
 	}

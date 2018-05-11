@@ -39,7 +39,7 @@ public:
 	Ogre::RenderWindow* mWindow;
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
-	DebugDrawer* debugDrawer;
+	//DebugDrawer* debugDrawer;
 
 };
 

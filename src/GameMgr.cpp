@@ -34,7 +34,7 @@ void GameMgr::Init(){
 void GameMgr::LoadLevel(){
     //CEGUI::OgreRenderer* mRenderer;
 
-	  engine->gfxMgr->mSceneMgr->setAmbientLight(Ogre::ColourValue(0.4, 0.4, 0.4));
+	  engine->gfxMgr->mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.4));
 
 	  engine->gfxMgr->mCamera->lookAt(Ogre::Vector3(0, 0, 0));
 
@@ -51,6 +51,11 @@ void GameMgr::LoadLevel(){
 	  cameraNode = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	  cameraNode->setPosition(500, 600, 1500);
 	  cameraNode->attachObject(engine->gfxMgr->mCamera);
+
+	  // Fog
+	  /*Ogre::ColourValue fadeColour(.9, .9, .9);
+	  engine->gfxMgr->mWindow->getViewport(0)->setBackgroundColour(fadeColour);
+	  engine->gfxMgr->mSceneMgr->setFog(Ogre::FOG_EXP, fadeColour, 0.00002);*/
 
 	  // Terrain
 	  mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
@@ -85,8 +90,11 @@ void GameMgr::LoadLevel(){
 	  //MakeGround();
 	  MakeSky();
 	  MakeEntities();
-	  createGrassMesh();
+	  //createGrassMesh();
 	  MakeProjectiles();
+	  //cameraNode = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	  cameraNode->setPosition(500, engine->gameMgr->mTerrainGroup->getHeightAtWorldPosition(engine->gameMgr->cameraNode->getPosition()) + 100, 1500);
+	  //cameraNode->attachObject(engine->gfxMgr->mCamera);
 }
 
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
@@ -199,7 +207,7 @@ void GameMgr::MakeEntities(){
 
 	for (int i = 0; i < 100; i++){
 		engine->entityMgr->CreateEntityOfTypeAtPosition(RobotType, position);
-		position.x += 1000;
+		position.x += 500;
 		if (i == 10){
 			position = Ogre::Vector3(0, 0, 0);
 		}
@@ -241,12 +249,22 @@ void GameMgr::MakeEntities(){
 void GameMgr::MakeProjectiles()
 {
 	Ogre::Vector3 proj = engine->gameMgr->cameraNode->getPosition();
+	Ogre::Vector3 enemyProj = Ogre::Vector3(0,-300,0);
 	proj.y -= 10;
+	//proj.z -= 500;
 	size_t i;
-	for(i = 0; i < 100; i++)
+	for(i = 0; i < 200; i++)
 	{
 		engine->entityMgr->CreateEntityOfTypeAtPosition(ProjectileType, proj);
 	}
+
+
+	for(i = 0; i < 1000; i++)
+	{
+		engine->entityMgr->CreateEntityOfTypeAtPosition(EnemyProjectileType, enemyProj);
+	}
+
+
 }
 
 void GameMgr::MakeGround(){

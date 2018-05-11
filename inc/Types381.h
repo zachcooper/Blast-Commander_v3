@@ -6,6 +6,7 @@ enum EntityTypes {
 	CarrierType,
 	RobotType,
 	ProjectileType,
+	EnemyProjectileType,
 
 };
 
