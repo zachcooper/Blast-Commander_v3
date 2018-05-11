@@ -72,7 +72,7 @@ public:
 
 };
 
-class Projectile: Entity381
+class Projectile: public Entity381
 {
 public:
 	Projectile(Engine *engine, std::string meshfilename, Ogre::Vector3 pos, int identity);
