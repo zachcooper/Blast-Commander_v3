@@ -108,7 +108,7 @@ Projectile::Projectile(Engine *engine, std::string meshfname, Ogre::Vector3 pos,
 		Entity381(engine, meshfname, pos, ident){
 	sceneNode->setScale(Ogre::Real(0.05), Ogre::Real(0.05), Ogre::Real(0.05));
 
-	//ogreEntity->setMaterialName("Projectile");
+	ogreEntity->setMaterialName("Projectile");
 
 }
 

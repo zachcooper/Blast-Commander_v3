@@ -83,7 +83,7 @@ GfxMgr::GfxMgr(Engine *engine): Mgr(engine) {
 
   //-----------------------------------------------------------------------
   Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-  debugDrawer = new DebugDrawer(mSceneMgr, 1.0);
+  new DebugDrawer(mSceneMgr, 0.5);
 
 }
 
@@ -104,7 +104,6 @@ void GfxMgr::Init(){
 
 }
 
-
 void GfxMgr::windowClosed(Ogre::RenderWindow *rw){
 	mRoot->shutdown();
 	engine->keepRunning = false;
@@ -112,6 +111,8 @@ void GfxMgr::windowClosed(Ogre::RenderWindow *rw){
 
 bool GfxMgr::frameRenderingQueued(const Ogre::FrameEvent& fe){
 	if(mWindow->isClosed()) return false;
+    // Set initial mouse clipping size
+    windowResized(mWindow);
 	return true;
 }
 

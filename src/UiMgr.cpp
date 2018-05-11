@@ -12,6 +12,12 @@
 #include <EntityMgr.h>
 #include <Types381.h>
 #include <GameMgr.h>
+#include <Entity381.h>
+#include <iostream>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 
 UiMgr::UiMgr(Engine* eng): Mgr(eng){
@@ -23,6 +29,8 @@ UiMgr::UiMgr(Engine* eng): Mgr(eng){
 	    health = 1.00;
 	    enemyHealth = 1.00;
 	    score = 0;
+	    highScore = 400;
+	    lives = 2;
 }
 
 UiMgr::~UiMgr(){ // before gfxMgr destructor
@@ -37,7 +45,7 @@ void UiMgr::Init(){
     mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", engine->gfxMgr->mWindow, mInputContext, this);
     //mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
     //mTrayMgr->showLogo(OgreBites::TL_BOTTOMRIGHT);
-    //mTrayMgr->hideCursor();
+    mTrayMgr->hideCursor();
 }
 
 void UiMgr::stop(){
@@ -59,7 +67,6 @@ void UiMgr::LoadLevel(){
 	//Splash();
 	//Hide();
 	//mTrayMgr->showBackdrop("myUI");
-	//healthButton = mTrayMgr->createButton(OgreBites::TL_LEFT, "HealthButton", "Health Drain");
 	//enemyHealthButton = mTrayMgr->createButton(OgreBites::TL_RIGHT, "EnemyHealthButton", "Enemy Drain");
 
 	//OgreBites::ProgressBar * pbar;
@@ -75,8 +82,16 @@ void UiMgr::LoadLevel(){
 	std::string str2 = ss2.str();
 	scoreLabel = mTrayMgr->createLabel(OgreBites::TL_TOPRIGHT, "Score", str2, 150.0);
 
+	std::stringstream ss3;
+	ss3 << lives;
+	std::string str3 = ss3.str();
+	livesLabel = mTrayMgr->createLabel(OgreBites::TL_TOPLEFT, "Lives", str3, 150.0);
+
 	mTrayMgr->hideAll();
 	Splash();
+
+	srand (time(NULL));
+
 
 
 }
@@ -85,7 +100,11 @@ void UiMgr::Tick(float dt){
 	//mTrayMgr->refreshCursor();
 
 	Ogre::Vector3 diff;
+	Ogre::Vector3 distance;
 	Ogre::Vector3 projDiff;
+	Ogre::Vector3 loc;
+	int random;
+
 
 	for (unsigned int i = 0; i < engine->entityMgr->entities.size(); i++)
 	{
@@ -96,19 +115,45 @@ void UiMgr::Tick(float dt){
 			{
 				health -= 0.01;
 			}
+
+			if(diff.length() < 2000.00)
+			{
+
+				random = rand() % 10000;
+				if(random % 500  == 0)
+				{
+
+				      if(!engine->entityMgr->enemyProjectiles.empty())
+				      {
+				    	  engine->entityMgr->enemyProjectile = engine->entityMgr->enemyProjectiles.back();
+				          engine->entityMgr->enemyProjectiles.pop_back();
+				          engine->entityMgr->enemyProjectile->position = engine->entityMgr->entities[i]->sceneNode->getPosition();
+
+				          engine->entityMgr->enemyProjectile->velocity = diff * 2;
+
+				          //engine->soundMgr->playLaserSound(engine->entityMgr->projectileEntity);
+				      }
+				}
+			}
 		}
 
 		if(engine->entityMgr->projectileEntity != NULL)
 		{
 			projDiff = engine->entityMgr->projectileEntity->sceneNode->getPosition() - engine->entityMgr->entities[i]->sceneNode->getPosition();
-			if (projDiff.length() < 50.0)
+			if (projDiff.length() < 60.0)
 			{
 				engine->gfxMgr->mSceneMgr->destroySceneNode(engine->entityMgr->entities[i]->sceneNode);
 				engine->entityMgr->entities.erase(engine->entityMgr->entities.begin() + i);
-				score += 10;
+				score += 20;
 				enemyHealth -= 0.01;
 			}
 		}
+	}
+
+	if(engine->inputMgr->mKeyboard->isKeyDown(OIS::KC_INSERT))
+	{
+		mTrayMgr->hideBackdrop();
+		mTrayMgr->showBackdrop("Instructions");
 	}
 
 	if(engine->inputMgr->mKeyboard->isKeyDown(OIS::KC_RETURN))
@@ -117,6 +162,7 @@ void UiMgr::Tick(float dt){
 		mTrayMgr->showBackdrop("myUI");
 		mTrayMgr->showAll();
 	}
+
 	ebar->setProgress(enemyHealth);
 	pbar->setProgress(health);
 
@@ -124,6 +170,35 @@ void UiMgr::Tick(float dt){
 	ss2 << score;
 	std::string str2 = ss2.str();
 	scoreLabel->setCaption(str2);
+
+	std::stringstream ss3;
+	ss3 << lives;
+	std::string str3 = ss3.str();
+	livesLabel->setCaption(str3);
+
+	if(score > highScore)
+	{
+		mTrayMgr->hideAll();
+		mTrayMgr->hideBackdrop();
+		mTrayMgr->showBackdrop("End");
+		highScore = 2000;
+	}
+
+	if(health < 0)
+	{
+		health = 1.0;
+		lives--;
+		if(lives < 0)
+		{
+			mTrayMgr->hideAll();
+			mTrayMgr->hideBackdrop();
+			mTrayMgr->showBackdrop("Died");
+			health = 1.0;
+			lives = 2;
+		}
+
+	}
+
 }
 
 
@@ -166,18 +241,15 @@ bool UiMgr::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id){
 void UiMgr::buttonHit(OgreBites::Button *b){
 
 /*
-    if(b->getName()=="HealthButton")
+    if(b->getName()=="StartButton")
     {
-    	health = health - 0.1;
-    	pbar->setProgress(health);
-    }
+    	mTrayMgr->removeWidgetFromTray("StartButton");
+		mTrayMgr->hideBackdrop();
+		mTrayMgr->showBackdrop("myUI");
+		mTrayMgr->showAll();
 
-    if(b->getName()=="EnemyHealthButton")
-    {
-    	enemyHealth = enemyHealth - 0.1;
-    	ebar->setProgress(enemyHealth);
     }
-*/
+    */
 }
 
 

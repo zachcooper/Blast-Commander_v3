@@ -13,6 +13,7 @@ EntityMgr::EntityMgr(Engine *eng): Mgr(eng){
 	count = 0;
 	selectedEntityIndex = -1;
 	projectileCount = 0;
+	enemyProjectileCount = 0;
 	projectileEntity = NULL;
 }
 
@@ -56,6 +57,12 @@ void EntityMgr::CreateProjectile(Ogre::Vector3 pos){
 
 }
 
+void EntityMgr::CreateEnemyProjectile(Ogre::Vector3 pos){
+	Projectile *ent = new Projectile(this->engine, "sphere.mesh", pos, count);
+    enemyProjectileCount++;
+	enemyProjectiles.push_back((Entity381 *) ent);
+
+}
 void EntityMgr::CreateEntityOfTypeAtPosition(EntityTypes entType, Ogre::Vector3 pos){
 
 	switch(entType){
@@ -72,6 +79,10 @@ void EntityMgr::CreateEntityOfTypeAtPosition(EntityTypes entType, Ogre::Vector3 
 		CreateProjectile(pos);
 		break;
 
+	case EnemyProjectileType:
+		CreateEnemyProjectile(pos);
+		break;
+
 	default:
 		CreateEntity("robot.mesh", pos);
 		break;
@@ -82,8 +93,13 @@ void EntityMgr::Tick(float dt){
 	for(int i = 0; i < count; i++){
 		entities[i]->Tick(dt);
 	}
+
 	for(int i = 0; i < projectileCount; i++){
 		projectiles[i]->Tick(dt);
+	}
+
+	for(int i = 0; i < enemyProjectileCount; i++){
+		enemyProjectiles[i]->Tick(dt);
 	}
 
 }
