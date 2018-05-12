@@ -33,6 +33,7 @@ namespace OgreSND {
 	const std::string laserSound2Filename = "assets/sounds/LaserSound2.wav";
 	const std::string explosionSoundFilename = "assets/sounds/explosion.wav";
 	const std::string explosionRobotSoundFilename = "assets/sounds/ExplosionRobot.wav";
+	const std::string vehicleHitSoundFilename = "assets/sounds/VehicleHit.wav";
 
 	typedef struct {
 		ALuint source;
@@ -66,6 +67,7 @@ namespace OgreSND {
 		// Custom sound sources
         ALuint laserSoundSource, laserSound2Source;
         ALuint explosionSoundSource, explosionRobotSoundSource;
+        ALuint vehicleHitSoundSource;
 		//unsigned int scvId;
 		//unsigned int soundDictionary[FastEcslent::NENTITYTYPES];
 		std::vector <std::string> sourceDictionary;
@@ -95,6 +97,7 @@ namespace OgreSND {
 		bool playEnemyLaserSound(Entity381* et);
 		bool playPlayerExplosionSound(Entity381* et);
 		bool playRobotExplosionSound(Entity381* et);
+		bool playVehicleHitSound(Entity381* et);
 
 		// Enable/disable sound
 		void enable();

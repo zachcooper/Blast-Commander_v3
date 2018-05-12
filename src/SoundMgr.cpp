@@ -124,6 +124,12 @@ void SoundMgr::initialize(void){
 		alSourcei(this->explosionRobotSoundSource, AL_MAX_DISTANCE, 8000.0f);
 	}
 
+	//default player explosion sound for all entities
+	if (this->reserveAudio(OgreSND::vehicleHitSoundFilename, false, sid)){
+		vehicleHitSoundSource = sourceInfo[sid].source;
+		alSourcei(this->vehicleHitSoundSource, AL_REFERENCE_DISTANCE, 2000.0f);
+		alSourcei(this->vehicleHitSoundSource, AL_MAX_DISTANCE, 8000.0f);
+	}
 }
 
 void SoundMgr::tick(double dtime){
@@ -170,6 +176,16 @@ bool SoundMgr::playRobotExplosionSound(Entity381* et){
 	Ogre::Vector3 pos = et->position;
 	if (this->playAudio(explosionRobotSoundSource, true)){
 	   return setSoundPosition(explosionRobotSoundSource, pos);
+	}
+	else {
+		return false;
+	}
+}
+
+bool SoundMgr::playVehicleHitSound(Entity381* et){
+	Ogre::Vector3 pos = et->position;
+	if (this->playAudio(vehicleHitSoundSource, true)){
+	   return setSoundPosition(vehicleHitSoundSource, pos);
 	}
 	else {
 		return false;
