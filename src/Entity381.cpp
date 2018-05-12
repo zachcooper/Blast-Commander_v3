@@ -37,8 +37,21 @@ Entity381::Entity381(Engine *engine, std::string meshfname, Ogre::Vector3 pos, i
 
 	Physics2D* phx = new Physics2D(this);
 	aspects.push_back((Aspect*) phx);
-	Renderable * renderable = new Renderable(this);
-	aspects.push_back((Aspect*)renderable);
+
+	if(meshfname != "banshee.mesh" )
+	{
+		Renderable * renderable = new Renderable(this);
+		aspects.push_back((Aspect*)renderable);
+	}
+	else
+	{
+		ShipRenderable * shipRenderable = new ShipRenderable(this);
+		aspects.push_back((Aspect*)shipRenderable);
+	}
+
+
+	unitAI = new UnitAI(this);
+	aspects.push_back((Aspect*) unitAI);
 
 	this->acceleration = 0;
 	this->desiredHeading = this->heading = 0;
@@ -79,9 +92,9 @@ Carrier::Carrier(Engine *engine, std::string meshfname, Ogre::Vector3 pos, int i
 		Entity381(engine, meshfname, pos, ident){
 	this->minSpeed = 0;
 	this->maxSpeed = 20.0f;//meters per second...
-	this->acceleration = 1.0f; // slow
-	this->turnRate = 10.0f; //2 degrees per second
-	this->altitude = 0;
+	this->acceleration = 10.0f; // slow
+	this->turnRate = 20.0f; //2 degrees per second
+	this->altitude = 700;
 	this->desiredAltitude = 0;
 	this->climbRate = 0;
 
@@ -89,6 +102,10 @@ Carrier::Carrier(Engine *engine, std::string meshfname, Ogre::Vector3 pos, int i
 	this->didSelectSoundPlay = false;
 	this->soundFile = "BoatSound.wav";
 	this->audioId = 1;
+
+	ShipPhysics2D* shipPhx = new ShipPhysics2D(this);
+	aspects.push_back((Aspect*) shipPhx);
+
 }
 
 Carrier::~Carrier(){

@@ -32,5 +32,15 @@ public:
 };
 
 
+class ShipRenderable : Aspect
+{
+public:
+	ShipRenderable(Entity381* ent);
+	~ShipRenderable();
+
+	void Tick(float dt);
+};
+
+
 
 #endif // #ifndef __Aspect_h_

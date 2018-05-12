@@ -5,9 +5,11 @@
 #include <OgreSceneManager.h>
 #include <OgreVector3.h>
 #include <Aspect.h>
+#include <UnitAI.h>
 
 #include <Engine.h>
 
+class UnitAI;
 
 class Entity381
 {
@@ -50,6 +52,8 @@ public:
 	bool didSelectSoundPlay;
 
   std::vector<Aspect* > aspects;
+
+  UnitAI* unitAI;
 
   void Tick(float dt);
 

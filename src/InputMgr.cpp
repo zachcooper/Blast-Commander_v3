@@ -196,7 +196,7 @@ bool InputMgr::mousePressed(const OIS::MouseEvent& me, OIS::MouseButtonID mid){
           engine->entityMgr->projectiles.pop_back();
 
           engine->entityMgr->projectileEntity->velocity = direction * 10000;
-          //engine->soundMgr->playLaserSound(engine->entityMgr->projectileEntity);
+          engine->soundMgr->playLaserSound(engine->entityMgr->projectileEntity);
       }
     	//std::pair <bool, float> result = mouseRay.intersects(engine->gameMgr->myPlane);
     }

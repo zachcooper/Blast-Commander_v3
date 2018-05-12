@@ -94,6 +94,18 @@ void UiMgr::LoadLevel(){
 
 
 
+	Follow* follow;
+
+	for(unsigned int i = 0; i < engine->entityMgr->entities.size(); i++)
+	{
+		if(engine->entityMgr->entities[i]->meshfilename == "banshee.mesh")
+		{
+			follow = new Follow(engine->entityMgr->entities[i], engine->gameMgr->cameraNode);
+			engine->entityMgr->entities[i]->unitAI->followCommand = follow;
+		}
+	}
+
+
 }
 
 void UiMgr::Tick(float dt){
@@ -103,6 +115,7 @@ void UiMgr::Tick(float dt){
 	Ogre::Vector3 distance;
 	Ogre::Vector3 projDiff;
 	Ogre::Vector3 loc;
+	Ogre::Vector3 groundPos;
 	int random;
 
 
@@ -113,14 +126,14 @@ void UiMgr::Tick(float dt){
 		{
 			if (diff.length() < 150.0)
 			{
-				health -= 0.01;
+				health -= 0.001;
 			}
 
 			if(diff.length() < 2000.00)
 			{
 
 				random = rand() % 10000;
-				if(random % 500  == 0)
+				if(random % 5077  == 0)
 				{
 
 				      if(!engine->entityMgr->enemyProjectiles.empty())
@@ -128,8 +141,10 @@ void UiMgr::Tick(float dt){
 				    	  engine->entityMgr->enemyProjectile = engine->entityMgr->enemyProjectiles.back();
 				          engine->entityMgr->enemyProjectiles.pop_back();
 				          engine->entityMgr->enemyProjectile->position = engine->entityMgr->entities[i]->sceneNode->getPosition();
+				          engine->entityMgr->enemyProjectile->position.y += 40;
 
-				          engine->entityMgr->enemyProjectile->velocity = diff * 2;
+				          diff.y -= 40;
+				          engine->entityMgr->enemyProjectile->velocity = diff; //* 2;
 
 				          //engine->soundMgr->playLaserSound(engine->entityMgr->projectileEntity);
 				      }
@@ -198,7 +213,6 @@ void UiMgr::Tick(float dt){
 		}
 
 	}
-
 }
 
 
