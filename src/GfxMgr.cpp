@@ -62,8 +62,15 @@ GfxMgr::GfxMgr(Engine *engine): Mgr(engine) {
     }
   }
 
-  if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
-	  std::cerr << "Could not find Config File and could not show Config Dialog" << std::endl;
+  if(mRoot->showConfigDialog())
+  {
+      // If returned true, user clicked OK so initialise.
+      // Here we choose to let the system create a default rendering window by passing 'true'.
+      mWindow = mRoot->initialise(true, "CS381 - Assignment One");
+  }
+
+  //if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
+	  //std::cerr << "Could not find Config File and could not show Config Dialog" << std::endl;
 
   mWindow = mRoot->initialise(true, "CS381 Game Engine Version 1.0");
 

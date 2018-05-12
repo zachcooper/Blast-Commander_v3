@@ -204,6 +204,7 @@ void GameMgr::configureTerrainDefaults(Ogre::Light* light)
 void GameMgr::MakeEntities(){
 	Ogre::Vector3 pos = Ogre::Vector3(-1000, 0, 0);
 	Ogre::Vector3 position = Ogre::Vector3(-1000, 0, 0);
+	Ogre::Vector3 enemyShipPos = Ogre::Vector3(0, 700, 0);
 
 	for (int i = 0; i < 100; i++){
 		engine->entityMgr->CreateEntityOfTypeAtPosition(RobotType, position);
@@ -240,10 +241,13 @@ void GameMgr::MakeEntities(){
 		}
 	}
 
+
+
 	//pos.x += 500;
-	//engine->entityMgr->CreateEntityOfTypeAtPosition(CarrierType, pos);
+	engine->entityMgr->CreateEntityOfTypeAtPosition(CarrierType, enemyShipPos);
 
 	engine->entityMgr->SelectNextEntity(true); //sets selection
+
 }
 
 void GameMgr::MakeProjectiles()

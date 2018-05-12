@@ -26,7 +26,7 @@ void EntityMgr::CreateEntity(std::string meshfilename, Ogre::Vector3 pos){
 }
 
 void EntityMgr::CreateCarrier(Ogre::Vector3 pos){
-	Carrier *ent = new Carrier(this->engine, "cvn68.mesh", pos, count);
+	Carrier *ent = new Carrier(this->engine, "banshee.mesh", pos, count);
 	count++;
 	entities.push_back((Entity381 *) ent);
 	shipEntity = entities.back();
