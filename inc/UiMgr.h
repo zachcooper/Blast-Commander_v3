@@ -17,6 +17,8 @@
 
 #include <SdkTrays.h>
 #include <string>
+#include <Command.h>
+#include <UnitAI.h>
 
 class UiMgr : public Mgr, public Ogre::FrameListener, public OIS::KeyListener, public OIS::MouseListener, public Ogre::WindowEventListener, public OgreBites::SdkTrayListener
 {

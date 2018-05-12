@@ -19,6 +19,14 @@ public:
 	void Tick(float dt);
 };
 
+class ShipPhysics2D : Aspect
+{
+public:
+	ShipPhysics2D(Entity381 *ent);
+	~ShipPhysics2D();
+
+	void Tick(float dt);
+};
 
 
 #endif /* PHYSICS2D_H_ */
