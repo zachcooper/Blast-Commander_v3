@@ -38,19 +38,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Blast-Commander_v3
+all: BlastCommander_v0
 
 # Tool invocations
-Blast-Commander_v3: $(OBJS) $(USER_OBJS)
+BlastCommander_v0: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L/usr/lib/x86_64-linux-gnu -L/usr/local/lib/OGRE -o "Blast-Commander_v3" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L/usr/local/lib/OGRE -L/usr/lib/x86_64-linux-gnu -o "BlastCommander_v0" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) Blast-Commander_v3
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) BlastCommander_v0
 	-@echo ' '
 
 .PHONY: all clean dependents

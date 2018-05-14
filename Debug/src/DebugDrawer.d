@@ -1,5 +1,5 @@
 src/DebugDrawer.o: ../src/DebugDrawer.cpp \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/DebugDrawer.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/DebugDrawer.h \
  /usr/local/include/OGRE/OgreSingleton.h \
  /usr/local/include/OGRE/OgrePrerequisites.h \
  /usr/local/include/OGRE/OgrePlatform.h \
@@ -120,7 +120,7 @@ src/DebugDrawer.o: ../src/DebugDrawer.cpp \
  /usr/local/include/OGRE/OgreManualObject.h \
  /usr/local/include/OGRE/OgreAxisAlignedBox.h
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/DebugDrawer.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/DebugDrawer.h:
 
 /usr/local/include/OGRE/OgreSingleton.h:
 

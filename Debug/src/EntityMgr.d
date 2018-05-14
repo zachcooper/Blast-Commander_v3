@@ -1,7 +1,7 @@
 src/EntityMgr.o: ../src/EntityMgr.cpp \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/EntityMgr.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Mgr.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Entity381.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/EntityMgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Mgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Entity381.h \
  /usr/local/include/OGRE/OgreEntity.h \
  /usr/local/include/OGRE/OgrePrerequisites.h \
  /usr/local/include/OGRE/OgrePlatform.h \
@@ -124,13 +124,16 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
  /usr/local/include/OGRE/OgreConfigOptionMap.h \
  /usr/local/include/OGRE/OgreNameGenerator.h \
  /usr/local/include/OGRE/OgreVector3.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Aspect.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Engine.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/SoundMgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Aspect.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/UnitAI.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Command.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/COMMAND_TYPE.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Engine.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/SoundMgr.h \
  /usr/local/include/OGRE/OgreQuaternion.h \
  /usr/local/include/OGRE/OgreFrameListener.h /usr/include/audio/wave.h \
  /usr/include/AL/al.h /usr/include/AL/alc.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/GameMgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/GameMgr.h \
  /usr/local/include/OGRE/Terrain/OgreTerrain.h \
  /usr/local/include/OGRE/Terrain/OgreTerrainPrerequisites.h \
  /usr/local/include/OGRE/OgrePrerequisites.h \
@@ -148,7 +151,7 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
  /usr/local/include/OGRE/Terrain/OgreTerrain.h \
  /usr/local/include/OGRE/OgreIteratorWrappers.h \
  /usr/local/include/OGRE/Terrain/OgreTerrainAutoUpdateLod.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/GfxMgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/GfxMgr.h \
  /usr/local/include/OGRE/OgreRoot.h \
  /usr/local/include/OGRE/OgreSceneManagerEnumerator.h \
  /usr/local/include/OGRE/OgreSceneManager.h \
@@ -156,14 +159,14 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
  /usr/local/include/OGRE/OgreLodStrategy.h \
  /usr/local/include/OGRE/OgreWorkQueue.h \
  /usr/local/include/OGRE/OgreWindowEventUtilities.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/DebugDrawer.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/DebugDrawer.h \
  /usr/local/include/OGRE/OgreSingleton.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/InputMgr.h \
- /usr/include/ois/OISEvents.h /usr/include/ois/OISPrereqs.h \
- /usr/include/ois/OISConfig.h /usr/include/ois/OISInputManager.h \
- /usr/include/ois/OISKeyboard.h /usr/include/ois/OISObject.h \
- /usr/include/ois/OISInterface.h /usr/include/ois/OISEvents.h \
- /usr/include/ois/OISMouse.h /usr/local/include/OGRE/SdkTrays.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/InputMgr.h \
+ /usr/include/OIS/OISEvents.h /usr/include/OIS/OISPrereqs.h \
+ /usr/include/OIS/OISConfig.h /usr/include/OIS/OISInputManager.h \
+ /usr/include/OIS/OISKeyboard.h /usr/include/OIS/OISObject.h \
+ /usr/include/OIS/OISInterface.h /usr/include/OIS/OISEvents.h \
+ /usr/include/OIS/OISMouse.h /usr/local/include/OGRE/SdkTrays.h \
  /usr/local/include/OGRE/Ogre.h \
  /usr/local/include/OGRE/OgreArchiveManager.h \
  /usr/local/include/OGRE/OgreBillboardChain.h \
@@ -248,22 +251,22 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
  /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h \
  /usr/local/include/OGRE/Overlay/OgreOverlayElementFactory.h \
  /usr/local/include/OGRE/OgreRenderQueueListener.h \
- /usr/local/include/OGRE/InputContext.h /usr/include/ois/OIS.h \
- /usr/include/ois/OISMouse.h /usr/include/ois/OISKeyboard.h \
- /usr/include/ois/OISJoyStick.h /usr/include/ois/OISMultiTouch.h \
- /usr/include/ois/OISInputManager.h /usr/include/ois/OISFactoryCreator.h \
- /usr/include/ois/OISException.h /usr/include/ois/OISEffect.h \
- /usr/include/ois/OISForceFeedback.h \
+ /usr/local/include/OGRE/InputContext.h /usr/include/OIS/OIS.h \
+ /usr/include/OIS/OISMouse.h /usr/include/OIS/OISKeyboard.h \
+ /usr/include/OIS/OISJoyStick.h /usr/include/OIS/OISMultiTouch.h \
+ /usr/include/OIS/OISInputManager.h /usr/include/OIS/OISFactoryCreator.h \
+ /usr/include/OIS/OISException.h /usr/include/OIS/OISEffect.h \
+ /usr/include/OIS/OISForceFeedback.h \
  /usr/local/include/OGRE/SdkCameraMan.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/UiMgr.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/AnimationMgr.h \
- /home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Types381.h
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/UiMgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/AnimationMgr.h \
+ /home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Types381.h
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/EntityMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/EntityMgr.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Mgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Mgr.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Entity381.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Entity381.h:
 
 /usr/local/include/OGRE/OgreEntity.h:
 
@@ -513,11 +516,17 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
 
 /usr/local/include/OGRE/OgreVector3.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Aspect.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Aspect.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Engine.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/UnitAI.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/SoundMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Command.h:
+
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/COMMAND_TYPE.h:
+
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Engine.h:
+
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/SoundMgr.h:
 
 /usr/local/include/OGRE/OgreQuaternion.h:
 
@@ -529,7 +538,7 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
 
 /usr/include/AL/alc.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/GameMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/GameMgr.h:
 
 /usr/local/include/OGRE/Terrain/OgreTerrain.h:
 
@@ -565,7 +574,7 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
 
 /usr/local/include/OGRE/Terrain/OgreTerrainAutoUpdateLod.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/GfxMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/GfxMgr.h:
 
 /usr/local/include/OGRE/OgreRoot.h:
 
@@ -581,29 +590,29 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
 
 /usr/local/include/OGRE/OgreWindowEventUtilities.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/DebugDrawer.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/DebugDrawer.h:
 
 /usr/local/include/OGRE/OgreSingleton.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/InputMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/InputMgr.h:
 
-/usr/include/ois/OISEvents.h:
+/usr/include/OIS/OISEvents.h:
 
-/usr/include/ois/OISPrereqs.h:
+/usr/include/OIS/OISPrereqs.h:
 
-/usr/include/ois/OISConfig.h:
+/usr/include/OIS/OISConfig.h:
 
-/usr/include/ois/OISInputManager.h:
+/usr/include/OIS/OISInputManager.h:
 
-/usr/include/ois/OISKeyboard.h:
+/usr/include/OIS/OISKeyboard.h:
 
-/usr/include/ois/OISObject.h:
+/usr/include/OIS/OISObject.h:
 
-/usr/include/ois/OISInterface.h:
+/usr/include/OIS/OISInterface.h:
 
-/usr/include/ois/OISEvents.h:
+/usr/include/OIS/OISEvents.h:
 
-/usr/include/ois/OISMouse.h:
+/usr/include/OIS/OISMouse.h:
 
 /usr/local/include/OGRE/SdkTrays.h:
 
@@ -777,30 +786,30 @@ src/EntityMgr.o: ../src/EntityMgr.cpp \
 
 /usr/local/include/OGRE/InputContext.h:
 
-/usr/include/ois/OIS.h:
+/usr/include/OIS/OIS.h:
 
-/usr/include/ois/OISMouse.h:
+/usr/include/OIS/OISMouse.h:
 
-/usr/include/ois/OISKeyboard.h:
+/usr/include/OIS/OISKeyboard.h:
 
-/usr/include/ois/OISJoyStick.h:
+/usr/include/OIS/OISJoyStick.h:
 
-/usr/include/ois/OISMultiTouch.h:
+/usr/include/OIS/OISMultiTouch.h:
 
-/usr/include/ois/OISInputManager.h:
+/usr/include/OIS/OISInputManager.h:
 
-/usr/include/ois/OISFactoryCreator.h:
+/usr/include/OIS/OISFactoryCreator.h:
 
-/usr/include/ois/OISException.h:
+/usr/include/OIS/OISException.h:
 
-/usr/include/ois/OISEffect.h:
+/usr/include/OIS/OISEffect.h:
 
-/usr/include/ois/OISForceFeedback.h:
+/usr/include/OIS/OISForceFeedback.h:
 
 /usr/local/include/OGRE/SdkCameraMan.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/UiMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/UiMgr.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/AnimationMgr.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/AnimationMgr.h:
 
-/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc/Types381.h:
+/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc/Types381.h:

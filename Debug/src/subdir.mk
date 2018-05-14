@@ -6,6 +6,7 @@
 CPP_SRCS += \
 ../src/AnimationMgr.cpp \
 ../src/Aspect.cpp \
+../src/Command.cpp \
 ../src/DebugDrawer.cpp \
 ../src/Engine.cpp \
 ../src/Entity381.cpp \
@@ -17,12 +18,14 @@ CPP_SRCS += \
 ../src/Physics2D.cpp \
 ../src/SoundMgr.cpp \
 ../src/UiMgr.cpp \
+../src/UnitAI.cpp \
 ../src/Utils.cpp \
 ../src/main.cpp 
 
 OBJS += \
 ./src/AnimationMgr.o \
 ./src/Aspect.o \
+./src/Command.o \
 ./src/DebugDrawer.o \
 ./src/Engine.o \
 ./src/Entity381.o \
@@ -34,12 +37,14 @@ OBJS += \
 ./src/Physics2D.o \
 ./src/SoundMgr.o \
 ./src/UiMgr.o \
+./src/UnitAI.o \
 ./src/Utils.o \
 ./src/main.o 
 
 CPP_DEPS += \
 ./src/AnimationMgr.d \
 ./src/Aspect.d \
+./src/Command.d \
 ./src/DebugDrawer.d \
 ./src/Engine.d \
 ./src/Entity381.d \
@@ -51,6 +56,7 @@ CPP_DEPS += \
 ./src/Physics2D.d \
 ./src/SoundMgr.d \
 ./src/UiMgr.d \
+./src/UnitAI.d \
 ./src/Utils.d \
 ./src/main.d 
 
@@ -59,7 +65,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"/home/zachcooper/eclipse-workspace/Blast-Commander_v3/inc" -I/usr/include/AL -I/usr/include/audio -I/usr/include/ois -I/usr/local/include/OGRE -I/usr/include/OIS -I/usr/local/include/OGRE/Overlay -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	g++ -I/usr/local/include/OGRE -I/usr/include/audio -I/usr/include/AL -I/usr/local/include/OGRE/Overlay -I/usr/include/OIS -I"/home/zachcooper/eclipse-workspace/BlastCommander_v0/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

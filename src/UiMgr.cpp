@@ -29,7 +29,7 @@ UiMgr::UiMgr(Engine* eng): Mgr(eng){
 	    health = 1.00;
 	    enemyHealth = 1.00;
 	    score = 0;
-	    highScore = 400;
+	    highScore = 100;
 	    lives = 2;
 }
 

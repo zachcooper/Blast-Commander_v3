@@ -9,6 +9,8 @@
 #include <EntityMgr.h>
 #include <GameMgr.h>
 #include <GfxMgr.h>
+#include <string>
+
 
 #include <iostream>
 #include <Types381.h>
@@ -21,6 +23,8 @@
 
 GameMgr::GameMgr(Engine *engine): Mgr(engine) {
 	cameraNode = 0;
+	levelTwo = false;
+	todo = true;
 }
 
 GameMgr::~GameMgr() {
@@ -31,47 +35,85 @@ void GameMgr::Init(){
 
 }
 
+void GameMgr::Tick(float dt){
+	if(engine->uiMgr->score >= engine->uiMgr->highScore && todo){
+		levelTwo = true;
+		LoadLevel();
+		todo = false;
+	}
+}
+
 void GameMgr::LoadLevel(){
-    //CEGUI::OgreRenderer* mRenderer;
+	  //CEGUI::OgreRenderer* mRenderer;
+	  std::string lightString;
+	  Ogre::Light* light;
+	  Ogre::Light* light2;
+
+	  if(levelTwo){
+		  mapSize = 12000.0;
+		  lightString = "TestLight2";
+	  }
+	  else{
+		  mapSize = 40000.0;
+		  lightString = "TestLight";
+	  }
 
 	  engine->gfxMgr->mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.4));
-
 	  engine->gfxMgr->mCamera->lookAt(Ogre::Vector3(0, 0, 0));
 
 	  Ogre::Vector3 lightDir(.55, -.3, .75);
 	  lightDir.normalise();
 
-	  Ogre::Light* light = engine->gfxMgr->mSceneMgr->createLight("TestLight");
-	  light->setType(Ogre::Light::LT_DIRECTIONAL);
-	  light->setDirection(lightDir);
-	  light->setDiffuseColour(Ogre::ColourValue::White);
-	  light->setSpecularColour(Ogre::ColourValue(.4, .4, .4));
+	  if(levelTwo == false){
+		  light = engine->gfxMgr->mSceneMgr->createLight(lightString);
+		  light->setType(Ogre::Light::LT_DIRECTIONAL);
+		  light->setDirection(lightDir);
+		  light->setDiffuseColour(Ogre::ColourValue::White);
+		  light->setSpecularColour(Ogre::ColourValue(.4, .4, .4));
+	  }
+	  else{
+		  light2 = engine->gfxMgr->mSceneMgr->createLight(lightString);
+		  light2->setType(Ogre::Light::LT_DIRECTIONAL);
+		  light2->setDirection(lightDir);
+		  light2->setDiffuseColour(Ogre::ColourValue::White);
+		  light2->setSpecularColour(Ogre::ColourValue(.4, .4, .4));
+	  }
 
 	  // A node to attach the camera to so we can move the camera node instead of the camera.
-	  cameraNode = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	  cameraNode->setPosition(500, 600, 1500);
-	  cameraNode->attachObject(engine->gfxMgr->mCamera);
-
-	  // Fog
-	  /*Ogre::ColourValue fadeColour(.9, .9, .9);
-	  engine->gfxMgr->mWindow->getViewport(0)->setBackgroundColour(fadeColour);
-	  engine->gfxMgr->mSceneMgr->setFog(Ogre::FOG_EXP, fadeColour, 0.00002);*/
+	  if(levelTwo == false){
+		  cameraNode = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		  cameraNode->setPosition(500, 600, 1500);
+		  cameraNode->attachObject(engine->gfxMgr->mCamera);
+	  }
 
 	  // Terrain
 	  mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-	  mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(
-	    engine->gfxMgr->mSceneMgr,
-	    Ogre::Terrain::ALIGN_X_Z,
-	    513, 12000.0);
-	  mTerrainGroup->setFilenameConvention(Ogre::String("terrain"), Ogre::String("dat"));
-	  mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
-
-	  configureTerrainDefaults(light);
-
-	  for (long x = 0; x <= 0; ++x)
-	    for (long y = 0; y <= 0; ++y)
-	      defineTerrain(x, y);
+	  if(levelTwo == false){
+		  mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(
+		    engine->gfxMgr->mSceneMgr,
+		    Ogre::Terrain::ALIGN_X_Z,
+		    513, mapSize);
+		  mTerrainGroup->setFilenameConvention(Ogre::String("terrain"), Ogre::String("dat"));
+		  mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
+		  configureTerrainDefaults(light);
+		  for (long x = 0; x <= 0; ++x)
+		    for (long y = 0; y <= 0; ++y)
+		      defineTerrain(x, y);
+	  }
+	  else{
+		  mTerrainGroup->unloadTerrain(0,0);
+		  mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(
+			 engine->gfxMgr->mSceneMgr,
+	         Ogre::Terrain::ALIGN_X_Z,
+		     513, mapSize);
+		  mTerrainGroup->setFilenameConvention(Ogre::String("terrain"), Ogre::String("dat"));
+		  mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
+		  configureTerrainDefaults(light2);
+		  for (long x = 0; x <= 0; ++x)
+			  for (long y = 0; y <= 0; ++y)
+				  defineTerrain(x, y);
+		  }
 
 	  mTerrainGroup->loadAllTerrains(true);
 
@@ -85,16 +127,23 @@ void GameMgr::LoadLevel(){
 	    }
 	  }
 
-	    mTerrainGroup->freeTemporaryResources();
+	  mTerrainGroup->freeTemporaryResources();
 
-	  //MakeGround();
-	  MakeSky();
-	  MakeEntities();
-	  //createGrassMesh();
-	  MakeProjectiles();
-	  //cameraNode = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	  cameraNode->setPosition(500, engine->gameMgr->mTerrainGroup->getHeightAtWorldPosition(engine->gameMgr->cameraNode->getPosition()) + 100, 1500);
-	  //cameraNode->attachObject(engine->gfxMgr->mCamera);
+	  if(levelTwo == false){
+		  MakeEntities();
+		  MakeProjectiles();
+		  cameraNode->setPosition(500, engine->gameMgr->mTerrainGroup->getHeightAtWorldPosition(engine->gameMgr->cameraNode->getPosition()) + 100, 1500);
+	  }
+
+
+	  if (levelTwo == false){
+		  engine->gfxMgr->mSceneMgr->setSkyDome(true, "Examples/CloudySky");
+	  }
+	  else{
+		  engine->gfxMgr->mSceneMgr->setSkyDome(false, "");
+		  engine->gfxMgr->mSceneMgr->setSkyBox(true, "Examples/MorningSkyBox");
+	  }
+
 }
 
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
@@ -168,36 +217,57 @@ void GameMgr::initBlendMaps(Ogre::Terrain* terrain)
 
 void GameMgr::configureTerrainDefaults(Ogre::Light* light)
 {
-  mTerrainGlobals->setMaxPixelError(8);
-  mTerrainGlobals->setCompositeMapDistance(3000);
+	std::string diffuse1;
+	std::string diffuse2;
+	std::string diffuse3;
 
-  mTerrainGlobals->setLightMapDirection(light->getDerivedDirection());
-  mTerrainGlobals->setCompositeMapAmbient(engine->gfxMgr->mSceneMgr->getAmbientLight());
-  mTerrainGlobals->setCompositeMapDiffuse(light->getDiffuseColour());
+	std::string normal1;
+	std::string normal2;
+	std::string normal3;
+	float worldSize = 0.0;
 
-  Ogre::Terrain::ImportData& importData = mTerrainGroup->getDefaultImportSettings();
-  importData.terrainSize = 513;
-  importData.worldSize = 12000.0;
-  importData.inputScale = 600;
-  importData.minBatchSize = 33;
-  importData.maxBatchSize = 65;
+  if(levelTwo == false){
+	diffuse1 = "grass_green-01_diffusespecular.dds";
+	diffuse2 = "grass_green-01_diffusespecular.dds";
+	diffuse3 = "grass_green-01_diffusespecular.dds";
+	normal1 = "grass_green-01_normalheight.dds";
+	normal2 = "grass_green-01_normalheight.dds";
+	normal3 = "grass_green-01_normalheight.dds";
+	worldSize = 40000.0;
+  }
+  else{
+	diffuse1 = "dirt_grayrocky_diffusespecular.dds";
+	diffuse2 = "grass_green-01_diffusespecular.dds";
+	diffuse3 = "growth_weirdfungus-03_diffusespecular.dds";
+	normal1 = "dirt_grayrocky_normalheight.dds";
+	normal2 = "grass_green-01_normalheight.dds";
+	normal3 = "growth_weirdfungus-03_normalheight.dds";
+	worldSize = 12000.0;
+  }
+	mTerrainGlobals->setMaxPixelError(8);
+	mTerrainGlobals->setCompositeMapDistance(3000);
 
-  importData.layerList.resize(3);
-  importData.layerList[0].worldSize = 100;
-  importData.layerList[0].textureNames.push_back(
-    "dirt_grayrocky_diffusespecular.dds");
-  importData.layerList[0].textureNames.push_back(
-    "dirt_grayrocky_normalheight.dds");
-  importData.layerList[1].worldSize = 30;
-  importData.layerList[1].textureNames.push_back(
-    "grass_green-01_diffusespecular.dds");
-  importData.layerList[1].textureNames.push_back(
-    "grass_green-01_normalheight.dds");
-  importData.layerList[2].worldSize = 200;
-  importData.layerList[2].textureNames.push_back(
-    "growth_weirdfungus-03_diffusespecular.dds");
-  importData.layerList[2].textureNames.push_back(
-    "growth_weirdfungus-03_normalheight.dds");
+	mTerrainGlobals->setLightMapDirection(light->getDerivedDirection());
+	mTerrainGlobals->setCompositeMapAmbient(engine->gfxMgr->mSceneMgr->getAmbientLight());
+	mTerrainGlobals->setCompositeMapDiffuse(light->getDiffuseColour());
+
+	Ogre::Terrain::ImportData& importData = mTerrainGroup->getDefaultImportSettings();
+	importData.terrainSize = 513;
+	importData.worldSize = worldSize;
+	importData.inputScale = 600;
+	importData.minBatchSize = 33;
+	importData.maxBatchSize = 65;
+
+	importData.layerList.resize(3);
+	importData.layerList[0].worldSize = 100;
+	importData.layerList[0].textureNames.push_back(diffuse1);
+	importData.layerList[0].textureNames.push_back(normal1);
+	importData.layerList[1].worldSize = 30;
+	importData.layerList[1].textureNames.push_back(diffuse2);
+	importData.layerList[1].textureNames.push_back(normal2);
+	importData.layerList[2].worldSize = 200;
+	importData.layerList[2].textureNames.push_back(diffuse3);
+	importData.layerList[2].textureNames.push_back(normal3);
 
 }
 
@@ -241,13 +311,10 @@ void GameMgr::MakeEntities(){
 		}
 	}
 
-
-
-	//pos.x += 500;
+	if(levelTwo == false){
 	engine->entityMgr->CreateEntityOfTypeAtPosition(CarrierType, enemyShipPos);
 
-	engine->entityMgr->SelectNextEntity(true); //sets selection
-
+	}
 }
 
 void GameMgr::MakeProjectiles()
@@ -296,7 +363,13 @@ void GameMgr::MakeGround(){
 }
 
 void GameMgr::MakeSky(){
+	if (levelTwo == false){
 	engine->gfxMgr->mSceneMgr->setSkyDome(true, "Examples/CloudySky");
+	}
+	if(levelTwo){
+		engine->gfxMgr->mSceneMgr->setSkyBox(true, "Examples/MorningSkyBox");
+
+	}
 }
 
 void GameMgr::createGrassMesh()
